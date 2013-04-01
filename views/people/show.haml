@@ -1,0 +1,3 @@
+%ul
+  - @person.checkins.each do |checkin|
+    %li= "\"#{checkin.message}\" at #{checkin.timestamp.strftime("%I:%M%p on %m/%d/%y")} at #{checkin.lat}, #{checkin.lng}"

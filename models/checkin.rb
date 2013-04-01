@@ -2,11 +2,11 @@ class WhereIs::Checkin
   include DataMapper::Resource
 
   property :id, Serial
-  property :email, String
   property :message, String
   property :timestamp, DateTime
   property :lat, Float
   property :lng, Float
+  belongs_to :person
 
   before :save, :set_geo_name
 
@@ -20,7 +20,10 @@ class WhereIs::Checkin
     response = HTTParty.get("http://api.geonames.org/searchJSON", query: params)
     json = JSON.parse(response.body)
     location = json['geonames'].first
-    self.lat = location['lat']
-    self.lng = location['lng']
+
+    if location
+      self.lat = location['lat']
+      self.lng = location['lng']
+    end
   end
 end

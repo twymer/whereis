@@ -2,4 +2,4 @@
 
 %ul
   - @checkins.each do |checkin|
-    %li= "#{checkin.email} said \"#{checkin.message}\" at #{checkin.timestamp.strftime("%I:%M%p on %m/%d/%y")} I think that maybe perhaps he was at #{checkin.lat}, #{checkin.lng}"
+    %li= "#{checkin.person.email} said \"#{checkin.message}\" at #{checkin.timestamp.strftime("%I:%M%p on %m/%d/%y")} I think that maybe perhaps he was at #{checkin.lat}, #{checkin.lng}"

@@ -7,18 +7,32 @@ class WhereIs < Sinatra::Base
 
   get '/checkin' do
     @checkin = Checkin.new
+
     haml :'checkin/new'
   end
 
   post '/checkin' do
-    data = { email: params[:email],
-             message: params[:message],
+    person = Person.first_or_create(:email => params[:email])
+
+    data = { message: params[:message],
              timestamp: Time.now }
-    checkin = Checkin.new(data)
+    checkin = person.checkins.new(data)
 
     if checkin.save
       redirect '/'
     end
+  end
+
+  get '/people' do
+    @people = Person.all
+
+    haml :'people/index'
+  end
+
+  get '/people/:id' do
+    @person = Person.get(params[:id])
+
+    haml :'people/show'
   end
 
   get '/update' do
@@ -26,10 +40,12 @@ class WhereIs < Sinatra::Base
     gmail = Gmail.new('wymer.12@gmail.com', password)
 
     gmail.inbox.emails.each do |email|
+      person = Person.first_or_create(:email => checkin.email)
+
       data = { email:  email.from.first,
                message: email.subject,
                timestamp: email.date }
-      checkin = Checkin.new(data)
+      checkin = person.checkins.new(data)
 
       # only remove it if it saved
       if checkin.save

@@ -1,0 +1,5 @@
+%ul
+  - @people.each do |person|
+    %li
+      %a{ :href => "/people/#{person.id}" }
+        = person.email
