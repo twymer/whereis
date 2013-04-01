@@ -1,5 +1,18 @@
+%script{ :src => 'http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.js' }
+%script{ :src => 'http://code.jquery.com/jquery-1.9.1.min.js' }
+%link{ :rel => 'stylesheet',
+       :href => 'http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.css' }
+
+%link{ :rel => 'stylesheet',
+       :type => 'text/css',
+       :href => 'css/map.css' }
+%script{ :src => 'js/map.js' }
+
 %h1 Hello Dimagi!
 
 %ul
   - @checkins.each do |checkin|
-    %li= "#{checkin.person.email} said \"#{checkin.message}\" at #{checkin.timestamp.strftime("%I:%M%p on %m/%d/%y")} I think that maybe perhaps he was at #{checkin.lat}, #{checkin.lng}"
+    %li.checkin{ :data => { :lat => checkin.lat, :lng => checkin.lng } }
+      = "#{checkin.person.email} said \"#{checkin.message}\" at #{checkin.timestamp.strftime("%I:%M%p on %m/%d/%y")} I think that maybe perhaps he was at #{checkin.lat}, #{checkin.lng}"
+
+#map

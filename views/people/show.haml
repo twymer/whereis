@@ -1,3 +1,16 @@
+%script{ :src => 'http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.js' }
+%script{ :src => 'http://code.jquery.com/jquery-1.9.1.min.js' }
+%link{ :rel => 'stylesheet',
+       :href => 'http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.css' }
+
+%link{ :rel => 'stylesheet',
+       :type => 'text/css',
+       :href => '../css/map.css' }
+%script{ :src => '../js/map.js' }
+
 %ul
   - @person.checkins.each do |checkin|
-    %li= "\"#{checkin.message}\" at #{checkin.timestamp.strftime("%I:%M%p on %m/%d/%y")} at #{checkin.lat}, #{checkin.lng}"
+    %li.checkin{ :data => { :lat => checkin.lat, :lng => checkin.lng }}
+      = "\"#{checkin.message}\" at #{checkin.timestamp.strftime("%I:%M%p on %m/%d/%y")} at #{checkin.lat}, #{checkin.lng}"
+
+#map
