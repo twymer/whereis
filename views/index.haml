@@ -1,5 +1,5 @@
 %h1 Hello Dimagi!
 
 %ul
-  - @emails.each do |email|
-    %li= "#{email.from.first} said #{email.subject}"
+  - @checkins.each do |checkin|
+    %li= "#{checkin.email} said \"#{checkin.message}\" at #{checkin.timestamp.strftime("%I:%M%p on %m/%d/%y")}"
