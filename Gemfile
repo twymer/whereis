@@ -5,6 +5,8 @@ gem 'shotgun'
 gem 'data_mapper'
 gem 'sqlite3'
 gem 'dm-sqlite-adapter'
+gem 'httparty'
+gem 'json'
 
 gem 'pry'
 

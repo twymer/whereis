@@ -55,6 +55,9 @@ GEM
     fastercsv (1.5.5)
     haml (4.0.1)
       tilt
+    httparty (0.10.2)
+      multi_json (~> 1.0)
+      multi_xml (>= 0.5.2)
     i18n (0.6.4)
     json (1.7.7)
     json_pure (1.7.7)
@@ -66,6 +69,7 @@ GEM
     mime (0.1)
     mime-types (1.22)
     multi_json (1.7.2)
+    multi_xml (0.5.3)
     polyglot (0.3.3)
     pry (0.9.12)
       coderay (~> 1.0.5)
@@ -101,6 +105,8 @@ DEPENDENCIES
   data_mapper
   dm-sqlite-adapter
   haml
+  httparty
+  json
   pry
   ruby-gmail
   shotgun
