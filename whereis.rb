@@ -1,32 +1,24 @@
 class WhereIs < Sinatra::Base
-  class Checkin
-    include DataMapper::Resource
-
-    property :id, Serial
-    property :email, String
-    property :message, String
-    property :timestamp, DateTime
-    property :lat, Float
-    property :lng, Float
-  end
-
   get '/' do
     @checkins = Checkin.all
 
     haml :index
   end
 
-  def get_geo_name(message)
-    params = { username: 'dimagi',
-               password: 'dimagi',
-               type: 'json',
-               maxRows: '1',
-               q: message }
+  get '/checkin' do
+    @checkin = Checkin.new
+    haml :'checkin/new'
+  end
 
-    response = HTTParty.get("http://api.geonames.org/searchJSON", query: params)
-    json = JSON.parse(response.body)
-    location = json['geonames'].first
-    return { lat: location['lat'], lng: location['lng'] }
+  post '/checkin' do
+    data = { email: params[:email],
+             message: params[:message],
+             timestamp: Time.now }
+    checkin = Checkin.new(data)
+
+    if checkin.save
+      redirect '/'
+    end
   end
 
   get '/update' do
@@ -34,12 +26,9 @@ class WhereIs < Sinatra::Base
     gmail = Gmail.new('wymer.12@gmail.com', password)
 
     gmail.inbox.emails.each do |email|
-      geo_data = get_geo_name(email.subject)
       data = { email:  email.from.first,
                message: email.subject,
-               timestamp: email.date,
-               lat: geo_data[:lat],
-               lng: geo_data[:lng] }
+               timestamp: email.date }
       checkin = Checkin.new(data)
 
       # only remove it if it saved
