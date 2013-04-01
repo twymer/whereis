@@ -13,6 +13,7 @@
 %ul
   - @checkins.each do |checkin|
     %li.checkin{ :data => { :lat => checkin.lat, :lng => checkin.lng } }
-      = "#{checkin.person.email} said \"#{checkin.message}\" at #{checkin.timestamp.strftime("%I:%M%p on %m/%d/%y")} I think that maybe perhaps he was at #{checkin.lat}, #{checkin.lng}"
+      = "#{checkin.person.email} said \"#{checkin.message}\" at #{checkin.timestamp.strftime("%I:%M%p on %m/%d/%y")}"
+      = "I think that maybe perhaps he was at #{checkin.lat}, #{checkin.lng}" if checkin.lat
 
 #map
